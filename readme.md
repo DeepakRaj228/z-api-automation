@@ -1,1 +1,1 @@
-Hello there! This Repo contains API automation for Zomato public APIs.
+Hello there! This Repo contains API automation using Rest-assured and TestNG framework
