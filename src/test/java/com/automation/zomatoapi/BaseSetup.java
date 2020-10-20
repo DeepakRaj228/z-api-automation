@@ -6,7 +6,7 @@ import io.restassured.specification.RequestSpecification;
 public class BaseSetup {
 
     static RequestSpecification getBaseRequestSpecification(){
-        String auth_key = "fe133fdefeba33dc86084780041cc13e";
+        String auth_key = "yxxyxyxxx";
         RequestSpecBuilder requestBuilder = new RequestSpecBuilder();
         requestBuilder.setBaseUri("https://developers.zomato.com/api/v2.1");
         requestBuilder.addHeader("user-key", auth_key);
