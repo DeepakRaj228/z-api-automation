@@ -1,17 +1,18 @@
 package com.automation.zomatoapi;
 
+import apiEngine.EndPoints;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class ZomatoCategoriesApiTest extends BaseSetup {
+public class ZomatoCategoriesApiTest {
 
     @Test
     public void testGetCategoriesWithValidApiKey(){
         Response resp = RestAssured.given()
-                .spec(getBaseRequestSpecification()).get("/categories");
+                .spec(EndPoints.getBaseRequestSpecification()).get(EndPoints.categories());
         JSONObject jsonobj = new JSONObject(resp.body().asString());
         Assert.assertEquals(resp.getStatusCode(),200);
         Assert.assertNotNull(jsonobj.get("categories"),"No categories available, please check and update.");
