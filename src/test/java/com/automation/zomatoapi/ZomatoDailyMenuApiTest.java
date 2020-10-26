@@ -1,18 +1,19 @@
 package com.automation.zomatoapi;
 
+import apiEngine.EndPoints;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class ZomatoDailyMenuApiTest extends BaseSetup{
+public class ZomatoDailyMenuApiTest {
 
     @Test
     public void testGetDailyMenuWithValidResId(){
         int res_id = 16507326;
         Response resp = RestAssured.given()
-                .spec(getBaseRequestSpecification()).queryParam("res_id",res_id).get("/dailymenu");
+                .spec(EndPoints.getBaseRequestSpecification()).queryParam("res_id",res_id).get(EndPoints.dailymenu());
         JSONObject jsonobj = new JSONObject(resp.body().asString());
         Assert.assertEquals(resp.getStatusCode(),200);
         Assert.assertNotNull(jsonobj.get("daily_menus"),"No daily_menus available in this restaurant, please check and update.");
@@ -22,7 +23,7 @@ public class ZomatoDailyMenuApiTest extends BaseSetup{
     public void testGetDailyMenuWithInValidResId(){
         int res_id = -13231;
         Response resp = RestAssured.given()
-                .spec(getBaseRequestSpecification()).queryParam("res_id",res_id).get("/dailymenu");
+                .spec(EndPoints.getBaseRequestSpecification()).queryParam("res_id",res_id).get(EndPoints.dailymenu());
         JSONObject jsonobj = new JSONObject(resp.body().asString());
         Assert.assertEquals(resp.getStatusCode(),400);
         Assert.assertEquals(jsonobj.get("message"),"No Daily Menu Available");
@@ -32,7 +33,7 @@ public class ZomatoDailyMenuApiTest extends BaseSetup{
     public void testGetDailyMenuWithResIdAsZero(){
         int res_id = 0;
         Response resp = RestAssured.given()
-                .spec(getBaseRequestSpecification()).queryParam("res_id",res_id).get("/dailymenu");
+                .spec(EndPoints.getBaseRequestSpecification()).queryParam("res_id",res_id).get(EndPoints.dailymenu());
         JSONObject jsonobj = new JSONObject(resp.body().asString());
         Assert.assertEquals(resp.getStatusCode(),400);
         Assert.assertEquals(jsonobj.get("message"),"Invalid res_id. Please try again with correct Zomato's restaurant ID.");
@@ -42,7 +43,7 @@ public class ZomatoDailyMenuApiTest extends BaseSetup{
     public void testGetDailyMenuWithValidResIdWithoutDailyMenus(){
         int res_id = 19368400;
         Response resp = RestAssured.given()
-                .spec(getBaseRequestSpecification()).queryParam("res_id",res_id).get("/dailymenu");
+                .spec(EndPoints.getBaseRequestSpecification()).queryParam("res_id",res_id).get(EndPoints.dailymenu());
         JSONObject jsonobj = new JSONObject(resp.body().asString());
         Assert.assertEquals(resp.getStatusCode(),400);
         Assert.assertEquals(jsonobj.get("message"),"No Daily Menu Available");
